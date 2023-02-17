@@ -1,40 +1,66 @@
 #include <stdio.h>
+
 /**
- * main - print numbers from 00 to 99.
-(*
-* Return: 0 on success
-*/
+ * main - a simple program that outputs 0-9 separated by commas
+ *
+ * Return: 0 on success
+ */
 int main(void)
 {
-int i = '0';
-int j = '0';
-int k = '0';
-
-while (i <= '7')
+int i;
+int j;
+int k;
+for (i = 48; i < 56; i++)
 {
-while (j <= '8')
+for (j = i + 1; j < 57; j++)
 {
-while (k <= '9')
-{
-if (i < j && j < k)
+for (k = j + 1; k < 58; k++)
 {
 putchar(i);
 putchar(j);
 putchar(k);
-if (!(i == '7' && j == '8' && k == '9'))
+if (i != 55 || j != 56 || k != 57)
 {
 putchar(',');
 putchar(' ');
 }
-
 }
-k++;
 }
-k = '0';
-j++;
-j = '0';
-i++;
 }
 putchar('\n');
 return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

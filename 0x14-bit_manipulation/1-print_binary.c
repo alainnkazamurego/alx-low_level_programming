@@ -8,21 +8,15 @@
  */
 void print_binary(unsigned long int n)
 {
+int i, flag;
 
-	unsigned long int prbi = 1ul << 63;
-	char c = '0';
-
-	while (!(prbi & n) && prbi != 0)
-		prbi = prbi >> 1;
-	if (prbi == 0)
-		write(1, &c, 1);
-	while (prbi)
+	if (n == 0)
+		_putchar('0');
+	for (flag = 0, i = sizeof(n) * 8 - 1; i >= 0; i--)
 	{
-		if (prbi & n)
-			c = '1';
-		else
-			c = '0';
-		write(1, &c, 1);
-		prbit = prbi >> 1;
+		if ((n >> i) & 1)
+		flag = 1;
+		if (flag == 1)
+			((n >> i) & 1) ? _putchar('1') : _putchar('0');
 	}
 }

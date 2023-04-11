@@ -11,8 +11,8 @@
  */
 int create_file(const char *filename, char *text_content)
 {
-	int fd, wr;
-	int s = 0;
+	int fdo, wri;
+	int soi = 0;
 
 	if (filename == NULL)
 	{
@@ -24,26 +24,26 @@ int create_file(const char *filename, char *text_content)
 		open(filename, O_CREAT, 0600);
 	}
 
-	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	fdo = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
 
-	if (fd == -1)
+	if (fdo == -1)
 	{
 		return (-1);
 	}
 
 	if (text_content)
 	{
-		while (text_content[s])
+		while (text_content[soi])
 		{
-			s++;
+			soi++;
 		}
-		wr = write(fd, text_content, s);
+		wri = write(fdo, text_content, soi);
 
-		if (wr != s)
+		if (wri != soi)
 		{
 			return (-1);
 		}
 	}
-	close(fd);
+	close(fdo);
 	return (1);
 }

@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+
 /**
  * close_errchk - closes and print
  * an error msg on fails
@@ -25,6 +26,7 @@ int close_errchk(int fd)
 	}
 	return (0);
 }
+
 /**
  * write_err - error ms on error
  *
@@ -41,6 +43,7 @@ int write_err(int fd1, int fd2, char *filename)
 	close_errchk(fd2);
 	return (99);
 }
+
 /**
  * read_err - error msg for a get error
  *
@@ -57,6 +60,7 @@ int read_err(int fd1, int fd2, char *filename)
 	close_errchk(fd2);
 	return (98);
 }
+
 /**
  * main - copy 1 file to other, new file with permssion 664
  * usage - cp file_from file_to

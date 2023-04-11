@@ -5,7 +5,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
-
 /**
  * close_errchk - closes and print
  * an error msg on fails
@@ -16,10 +15,10 @@
  */
 int close_errchk(int fd)
 {
-	int error_h;
+	int err;
 
-	error_h = close(fd);
-	if (error_h == -1)
+	err = close(fd);
+	if (err == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: unable to close fd %d\n", fd);
 		return (100);
@@ -74,7 +73,7 @@ int read_err(int fd1, int fd2, char *filename)
 int main(int ac, char *av[])
 {
 	char buf[1024];
-	int lnree, lngwe, file_from, file_to, error_h;
+	int lenr, lenw, file_from, file_to, err;
 
 	if (ac != 3)
 	{
@@ -97,16 +96,16 @@ int main(int ac, char *av[])
 		return (99);
 	}
 	do {
-		lnree = read(file_from, buf, 1024);
-		if (lnree == -1)
+		lenr = read(file_from, buf, 1024);
+		if (lenr == -1)
 			return (read_err(file_from, file_to, av[1]));
-		lngwe = write(file_to, buf, lnree);
-		if (lngwe == -1 || lngwe != lnree)
+		lenw = write(file_to, buf, lenr);
+		if (lenw == -1 || lenw != lenr)
 			return (write_err(file_from, file_to, av[2]));
-	} while (lnree == 1024);
-	error_h = close_errchk(file_from);
-	error_h += close_errchk(file_to);
-	if (error_h != 0)
+	} while (lenr == 1024);
+	err = close_errchk(file_from);
+	err += close_errchk(file_to);
+	if (err != 0)
 		return (100);
 	return (0);
 }

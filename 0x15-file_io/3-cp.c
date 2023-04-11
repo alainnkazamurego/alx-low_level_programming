@@ -6,10 +6,10 @@
 #include <fcntl.h>
 #include <stdio.h>
 /**
- * close_errchk - closes a file descriptor and prints
- * an error message if it fails
+ * close_errchk - exit descript and output
+ * err message on  fauls
  *
- * @fd: file descriptor to close
+ * @fd: file descript for exit
  *
  * Return: 0 on success, -1 on failure
  */
@@ -29,15 +29,15 @@ int close_errchk(int fd)
 /**
  * write_err - error handler for a write error
  *
- * @fd1: first descriptor to close
- * @fd2: second descriptor to close
+ * @fd1: descript 1 for exit
+ * @fd2: descript 2 for exit
  * @filename: filename prompting the error
  *
  * Return: 99
  */
 int write_err(int fd1, int fd2, char *filename)
 {
-	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+	dprintf(STDERR_FILENO, "Error: Unable to write in %s\n", filename);
 	close_errchk(fd1);
 	close_errchk(fd2);
 	return (99);
@@ -46,22 +46,22 @@ int write_err(int fd1, int fd2, char *filename)
 /**
  * read_err - error handler for a read error
  *
- * @fd1: first descriptor to close
- * @fd2: second descriptor to close
+ * @fd1: descript 1 for exit
+ * @fd2: descript 2 for exit
  * @filename: filename prompting the error
  *
  * Return: 98
  */
 int read_err(int fd1, int fd2, char *filename)
 {
-	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+	dprintf(STDERR_FILENO, "Error: Unable to read in file %s\n", filename);
 	close_errchk(fd1);
 	close_errchk(fd2);
 	return (98);
 }
 
 /**
- * main - copy one file to another, new file with perms 664
+ * main - cp f 1 to another, new file with perms 664
  * usage - cp file_from file_to
  *
  * @ac: number of arg
@@ -86,7 +86,7 @@ int main(int ac, char *av[])
 	file_from = open(av[1], O_RDONLY);
 	if (file_from == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n",
+		dprintf(STDERR_FILENO, "Error: Unable to read in file %s\n",
 			av[1]);
 		return (98);
 	}
@@ -94,7 +94,7 @@ int main(int ac, char *av[])
 		       S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (file_to == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
+		dprintf(STDERR_FILENO, "Error: Unable to write in %s\n", av[2]);
 		close_errchk(file_from);
 		return (99);
 	}

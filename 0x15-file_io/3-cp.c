@@ -65,10 +65,7 @@ int read_err(int fd1, int fd2, char *filename)
  * @av: list of arguments
  *
  * Return: 97 if wrong number of arguments
- * 98 if file_from does not exist or unreadable
- * 99 if write is false
- * 100 if file close is false
- * 0 else
+ * 98 if file_from does not exist or unreadab
  */
 int main(int ac, char *av[])
 {
@@ -105,7 +102,7 @@ int main(int ac, char *av[])
 	} while (lnree == 1024);
 	error_h = close_errchk(file_from);
 	error_h += close_errchk(file_to);
-	if (error_h!= 0)
+	if (error_h != 0)
 		return (100);
 	return (0);
 }

@@ -4,27 +4,38 @@
 
 /**
  * read_textfile - Entry Point
- * @filename: file name
+ * @filename: file name 
  * @letters: size
  * Return: 0
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd, frd;
-	ssize_t result;
-	char *buf;
+	int fl, rdo, wri;
+	char *bf;
 
-	fd = open(filename, O_RDONLY);
-
-	buf = malloc(sizeof(char) * letters + 1);
-	frd = read(fd, buf, letters);
-	result = write(1, buf, frd);
-	if (filename == NULL || buf == NULL || frd == -1 || result == -1)
-	{
+	if (filename == NULL)
 		return (0);
-	}
-	buf[letters] = '\0';
-	close(fd);
-	free(buf);
-	return (result);
+
+	fl = open(filename, O_RDONLY);
+
+	if (fl == -1)
+		return (0);
+
+	bf = malloc(sizeof(char) * letters + 1);
+	if (bf == NULL)
+		return (0);
+
+	rdo = read(fl, bf, letters);
+	if (rdo == -1)
+		return (0);
+
+	bf[letters] = '\0';
+
+	wri = write(1, bf, rdo);
+	if (wri == -1)
+		return (0);
+
+	close(fl);
+	free(bf);
+	return (wri);
 }

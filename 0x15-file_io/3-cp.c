@@ -6,12 +6,12 @@
 #include <fcntl.h>
 #include <stdio.h>
 /**
- * close_errchk - closes and print
- * an error msg on fails
+ * close_errchk - closes a file descriptor and prints
+ * an error message if it fails
  *
- * @fd: descriptor to exit
+ * @fd: file descriptor to close
  *
- * Return: 0 on true, -1 on false
+ * Return: 0 on success, -1 on failure
  */
 int close_errchk(int fd)
 {
@@ -20,55 +20,58 @@ int close_errchk(int fd)
 	err = close(fd);
 	if (err == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: unable to close fd %d\n", fd);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		return (100);
 	}
 	return (0);
 }
 
 /**
- * write_err - error ms on error
+ * write_err - error handler for a write error
  *
- * @fd1: descriptor 1 on exit
- * @fd2: descriptor 2 on exit
- * @filename:  prompting the mistake
+ * @fd1: first descriptor to close
+ * @fd2: second descriptor to close
+ * @filename: filename prompting the error
  *
  * Return: 99
  */
 int write_err(int fd1, int fd2, char *filename)
 {
-	dprintf(STDERR_FILENO, "Error: unable to write to %s\n", filename);
+	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 	close_errchk(fd1);
 	close_errchk(fd2);
 	return (99);
 }
 
 /**
- * read_err - error msg for a get error
+ * read_err - error handler for a read error
  *
- * @fd1: descriptor 1 to exit
- * @fd2: descriptor 2 to exit
- * @filename: filename asking the error
+ * @fd1: first descriptor to close
+ * @fd2: second descriptor to close
+ * @filename: filename prompting the error
  *
  * Return: 98
  */
 int read_err(int fd1, int fd2, char *filename)
 {
-	dprintf(STDERR_FILENO, "Error: unable to read from item %s\n", filename);
+	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 	close_errchk(fd1);
 	close_errchk(fd2);
 	return (98);
 }
 
 /**
- * main - copy 1 file to other, new file with permssion 664
+ * main - copy one file to another, new file with perms 664
  * usage - cp file_from file_to
  *
- * @ac: number of argumetns
- * @av: list of arguments
+ * @ac: number of arg
+ * @av: list of args
  *
- * Return: 97 if wrong number of arguments
- * 98 if file_from does not exist or unreadab
+ * Return: 97 if incorrect num of args
+ * 98 if file_from does not exist or unreadable
+ * 99 if write fails
+ * 100 if file close fails
+ * 0 otherwise
  */
 int main(int ac, char *av[])
 {
@@ -83,7 +86,7 @@ int main(int ac, char *av[])
 	file_from = open(av[1], O_RDONLY);
 	if (file_from == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: unable read from file %s\n",
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n",
 			av[1]);
 		return (98);
 	}
@@ -91,7 +94,7 @@ int main(int ac, char *av[])
 		       S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (file_to == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Unable write to %s\n", av[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
 		close_errchk(file_from);
 		return (99);
 	}

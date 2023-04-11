@@ -4,7 +4,7 @@
 
 /**
  * read_textfile - Entry Point
- * @filename: file name 
+ * @filename: file name
  * @letters: size
  * Return: 0
  */
